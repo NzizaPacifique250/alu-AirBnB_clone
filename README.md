@@ -1,4 +1,4 @@
-# 🏡 AirBnB Clone - Command Interpreter
+# 🏡 AirBnB Clone 
 
 ## Project Description
 This project is the first step in building a full AirBnB web application. It involves creating a **command interpreter** to manage AirBnB objects, which will be expanded in future stages. The command interpreter allows for the **creation**, **retrieval**, **update**, and **deletion** of objects, as well as **storing** and **retrieving** data from a file in JSON format.
@@ -12,11 +12,16 @@ This project is the first step in building a full AirBnB web application. It inv
 
 ## Quick Start
 1. Clone the repository:
-   ```bash
+   
    **HTTPS**
+   ```bash
    https://github.com/NzizaPacifique250/alu-AirBnB_clone.git
+   ```
+  
    **SSH**
+    ```bash
    git@github.com:NzizaPacifique250/alu-AirBnB_clone.git
-
+   ```
+ ```bash
    git clone 
    cd AirBnB_clone
