@@ -20,8 +20,11 @@ class BaseModel:
                     setattr(self, key, value)
         else:
             models.storage.new(self)
+
     def __str__(self):
-        """String representation of the BaseModel instance."""
+        """
+        String representation of the BaseModel instance.
+        """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
@@ -29,7 +32,9 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self): 
-        """Returns a dictionary containing all keys/values of the instance."""
+        """
+        Returns a dictionary containing all keys/values of the instance.
+        """
         result = self.__dict__.copy()
         result['__class__'] = self.__class__.__name__
         result['created_at'] = self.created_at.isoformat()
