@@ -1,44 +1,37 @@
+#!/usr/bin/python3
 import uuid
-from datetime import datetime
-import models
-
+import datetime
 
 class BaseModel:
-    """Defines all common attributes/methods for other classes."""
-
-    def __init__(self, *args, **kwargs):
-        """Initializes the BaseModel with unique ID and creation time."""
-
-        tform = "%Y-%m-%dT%H:%M:%S.%f"
-
-        self.id = str(uuid.uuid4())  # unique id converted to string
-        self.created_at = datetime.now()  # current datetime for creation
-        self.updated_at = datetime.now()  # updated_at same as as created_at
-
-        if kwargs:
-            for key, value in kwargs.items():
-                if key == 'created_at' or key == 'updated_at':
-                    setattr(self, key, datetime.strptime(value, tform))
-                elif key != '__class__':
-                    setattr(self, key, value)
-        else:
-            models.storage.new(self)
-
-    def __str__(self):
-        """String representation of the BaseModel instance."""
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+    def __init__(self):
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
 
     def save(self):
-        """Updates the updated_at attribute with the current datetime."""
-        self.updated_at = datetime.now()
-        models.storage.save()
+        self.updated_at = datetime.datetime.now()
 
-    def to_dict(self):
-        """Returns a dictionary containing all keys/values of the instance."""
-        # Copy the instance's __dict__ and add the __class__ key
-        result = self.__dict__.copy()
-        result['__class__'] = self.__class__.__name__
-        # Convert created_at and updated_at to ISO 8601 format strings
-        result['created_at'] = self.created_at.isoformat()
-        result['updated_at'] = self.updated_at.isoformat()
-        return result
+    def to_dict(self): 
+        inst_dict = self.__dict__.copy()
+        inst_dict["__class__"] = self.__class__.__name__
+        inst_dict["__created_at__"] = self.created_at.isoformat()
+        inst_dict["__updated_at__"] = self.updated_at.isoformat()
+
+        return inst_dict
+    def __str__(self):
+        class_name = self.__class__.__name__
+
+        return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
+    
+if __name__ == "__main__":
+    my_model = BaseModel()
+    my_model.name = "My Firt Model" 
+    my_model.my_number = 90  
+    print(my_model)
+    my_model.save()
+    print(my_model)
+    my_model_json = my_model.to_dict()
+    print(my_model_json) 
+    print('JSON format of my_model:')
+    for key in my_model_json.keys():
+        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
