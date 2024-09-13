@@ -62,6 +62,7 @@ Through this project, we will:
 ## How to Get Started
 
 1. Clone the repository:
+
    **SSH**
    ```bash
    git clone git@github.com:NzizaPacifique250/alu-AirBnB_clone.git
